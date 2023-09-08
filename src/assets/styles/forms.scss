@@ -1,6 +1,8 @@
 @use "globals.scss";
+
 .background {
     background-color: globals.$white;
+    font-family: globals.$main-font;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -13,7 +15,7 @@
         color: globals.$primary1;
     }
 
-    
+
 }
 
 .details {
@@ -29,7 +31,6 @@
 form {
     background-color: globals.$primary1;
     color: globals.$white;
-    font-family: globals.$main-font;
     width: 90%;
     margin: 0 auto;
     padding: 10%;
@@ -96,16 +97,28 @@ form {
             color: globals.$white;
             border-color: globals.$white;
         }
+
         &:hover::after {
             transform: scale(100);
             background-color: globals.$primary1;
             box-shadow: 0px 0px 0px 36px globals.$primary2;
         }
     }
+
+    a {
+        color: globals.$white;
+        margin-top: 1rem;
+        transition: text-decoration .2s linear;
+
+        &:hover {
+            color: globals.$white;
+            text-decoration: underline;
+        }
+    }
 }
 
 
-@media (width >= 768px) {
+@media (width >=768px) {
     .background {
         flex-direction: row-reverse;
         justify-content: space-between;
@@ -119,13 +132,20 @@ form {
 
         img {
             display: block;
-            width: 100%;
+            width: 90%;
         }
 
         h1 {
             font-size: 4rem;
-            font-weight: 700;
+            font-weight: 650;
         }
+    }
+
+
+    .waves-background {
+        background-image: url("wave.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
     }
 
     form {

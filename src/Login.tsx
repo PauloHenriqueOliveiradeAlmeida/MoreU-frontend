@@ -51,6 +51,8 @@ function Login() {
                 </div>
 
                 <button type="submit"><span>Fazer Login</span></button>
+
+                <a href="/cadastro">Não tem conta? Cadastre-se agora</a>
             </form>
 
             <div className="details">

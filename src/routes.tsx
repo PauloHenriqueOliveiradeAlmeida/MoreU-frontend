@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Login from "./Login";
+import Cadastro from "./Cadastro";
 
 const router = createBrowserRouter([
     {
@@ -13,7 +14,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/cadastro",
-        element: <></>
+        element: <Cadastro/>
     },
     {
         path: "/dashboard",
