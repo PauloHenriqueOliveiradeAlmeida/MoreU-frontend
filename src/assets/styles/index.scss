@@ -1,15 +1,4 @@
-$white: #ffffff;
-$black: #000000;
-$primary1: #121d46;
-$primary2: #88abc2;
-$textCol: #1f1f1f;
-
-// import fonts
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
-
-@mixin main-font {
-  font-family: "Poppins", sans-serif;
-}
+@use "globals.scss";
 
 @mixin hero_btn($col1, $col2, $pad1, $pad2, $bRadius) {
   display: inline-block;
@@ -26,9 +15,21 @@ $textCol: #1f1f1f;
   }
 }
 
+
+@mixin main-font {
+  font-family: globals.$main-font;
+}
+
+
 @mixin upperBold {
   text-transform: uppercase;
   font-weight: bold;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
 }
 
 body {
@@ -76,7 +77,7 @@ body {
     font-weight: bold;
 
     span {
-      color: $primary1;
+      color: globals.$primary1;
     }
   }
 
@@ -109,7 +110,7 @@ a:focus {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: $primary1;
+  background-color: globals.$primary1;
   border-radius: 0 0 350px 0;
 }
 
@@ -132,7 +133,7 @@ a:focus {
 .navbar-brand {
   span {
     font-weight: bold;
-    color: $white;
+    color: globals.$white;
     font-size: 24px;
   }
 }
@@ -146,7 +147,7 @@ a:focus {
     .nav-item {
       .nav-link {
         padding: 5px 25px;
-        color: $white;
+        color: globals.$white;
         text-align: center;
         text-transform: uppercase;
         border-radius: 5px;
@@ -156,8 +157,8 @@ a:focus {
       &:hover,
       &.active {
         .nav-link {
-          color: $black;
-          background-color: $white;
+          color: globals.$black;
+          background-color: globals.$white;
         }
       }
     }
@@ -178,7 +179,7 @@ a:focus {
     display: block;
     width: 35px;
     height: 4px;
-    background-color: $white;
+    background-color: globals.$white;
     margin: 7px 0;
     transition: all 0.3s;
     position: relative;
@@ -192,7 +193,7 @@ a:focus {
       left: 0;
       height: 100%;
       width: 100%;
-      background-color: $white;
+      background-color: globals.$white;
       top: -10px;
       border-radius: 5px;
       transition: all 0.3s;
@@ -248,7 +249,7 @@ a:focus {
   align-items: center;
 
   a {
-    color: $black;
+    color: globals.$black;
     text-transform: uppercase;
 
     span {
@@ -256,12 +257,12 @@ a:focus {
     }
 
     &:hover {
-      color: $primary2;
+      color: globals.$primary2;
     }
   }
 
   .quote_btn {
-    @include hero_btn($primary2, $primary1, 5px, 25px, 5px);
+    @include hero_btn(globals.$primary2, globals.$primary1, 5px, 25px, 5px);
   }
 }
 
@@ -285,7 +286,7 @@ a:focus {
 
   .detail-box {
     text-align: center;
-    color: $white;
+    color: globals.$white;
 
     h1 {
       font-weight: bold;
@@ -307,8 +308,8 @@ a:focus {
       }
 
       .btn1 {
-        @include hero_btn(darken($color: $primary1, $amount: 10),
-          $white,
+        @include hero_btn(darken($color: globals.$primary1, $amount: 10),
+          globals.$white,
           12px,
           15px,
           5px);
@@ -330,7 +331,7 @@ a:focus {
     margin-top: 45px;
 
     li {
-      background-color: $white;
+      background-color: globals.$white;
       width: 15px;
       height: 15px;
       border-radius: 100%;
@@ -339,7 +340,7 @@ a:focus {
       &.active {
         width: 23px;
         height: 23px;
-        background-color: $primary2;
+        background-color: globals.$primary2;
       }
     }
   }
@@ -358,8 +359,8 @@ a:focus {
 
   .box {
     margin-top: 25px;
-    // background: darken($color: $primary1, $amount: 10);
-    // color: $white;
+    // background: darken($color: globals.$primary1, $amount: 10);
+    // color: globals.$white;
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 0 5px 0 rgba($color: #000000, $alpha: 0.25);
@@ -374,7 +375,7 @@ a:focus {
       position: absolute;
       right: -137.5px;
       bottom: -137.5px;
-      background-color: lighten($color: $primary1, $amount: 52);
+      background-color: lighten($color: globals.$primary1, $amount: 52);
       z-index: -1;
       border-radius: 100%;
       transition: all 0.3s;
@@ -410,10 +411,10 @@ a:focus {
     &:hover {
       &::before {
         transform: scale(5);
-        background-color: $primary1;
+        background-color: globals.$primary1;
       }
 
-      color: $white;
+      color: globals.$white;
 
       img {
         filter: invert(1);
@@ -427,7 +428,7 @@ a:focus {
     margin-top: 45px;
 
     a {
-      @include hero_btn($primary1, $white, 10px, 45px, 5px);
+      @include hero_btn(globals.$primary1, globals.$white, 10px, 45px, 5px);
     }
   }
 }
@@ -436,8 +437,8 @@ a:focus {
 
 // about section
 .about_section {
-  background-color: $primary1;
-  color: $white;
+  background-color: globals.$primary1;
+  color: globals.$white;
   border-radius: 250px 0 250px 0;
 
   .row {
@@ -458,7 +459,7 @@ a:focus {
     }
 
     a {
-      @include hero_btn($primary2, $white, 10px, 45px, 5px);
+      @include hero_btn(globals.$primary2, globals.$white, 10px, 45px, 5px);
       margin-top: 15px;
     }
   }
@@ -481,7 +482,7 @@ a:focus {
 
   .box {
     margin-top: 45px;
-    background-color: $white;
+    background-color: globals.$white;
     box-shadow: 0 0 10px 0 rgba($color: #000000, $alpha: 0.15);
     text-align: center;
 
@@ -505,7 +506,7 @@ a:focus {
       }
 
       a {
-        color: $primary1;
+        color: globals.$primary1;
       }
     }
   }
@@ -546,7 +547,7 @@ a:focus {
 
         h6 {
           margin-bottom: 0;
-          color: $primary1;
+          color: globals.$primary1;
           font-weight: normal;
           font-size: 15px;
           text-transform: uppercase;
@@ -563,9 +564,9 @@ a:focus {
     }
 
     .detail-box {
-      background-color: $white;
-      background-color: $primary1;
-      color: $white;
+      background-color: globals.$white;
+      background-color: globals.$primary1;
+      color: globals.$white;
       border-radius: 15px;
       padding: 85px 45px 15px 45px;
     }
@@ -578,7 +579,7 @@ a:focus {
     align-items: center;
 
     li {
-      background-color: $primary1;
+      background-color: globals.$primary1;
       width: 10px;
       height: 10px;
       border-radius: 100%;
@@ -587,7 +588,7 @@ a:focus {
       &.active {
         width: 20px;
         height: 20px;
-        background-color: $primary2;
+        background-color: globals.$primary2;
       }
     }
   }
@@ -611,7 +612,7 @@ a:focus {
     padding-left: 15px;
     background-color: transparent;
     outline: none;
-    color: $black;
+    color: globals.$black;
     border: 1px solid #a5a5a5;
 
     &::placeholder {
@@ -625,7 +626,7 @@ a:focus {
 
   button {
     @include main-font();
-    @include hero_btn($primary1, $white, 10px, 65px, 3px);
+    @include hero_btn(globals.$primary1, globals.$white, 10px, 65px, 3px);
     color: #fff;
     margin-top: 10px;
   }
@@ -649,8 +650,8 @@ a:focus {
 // end contact section
 
 .footer_container {
-  background-color: $primary1;
-  color: $white;
+  background-color: globals.$primary1;
+  color: globals.$white;
   border-radius: 350px 0 0 0;
   padding-top: 145px;
 }
@@ -669,14 +670,14 @@ a:focus {
 
       a {
         margin: 5px 0;
-        color: $white;
+        color: globals.$white;
 
         i {
           margin-right: 5px;
         }
 
         &:hover {
-          color: $primary2;
+          color: globals.$primary2;
         }
       }
     }
@@ -690,13 +691,13 @@ a:focus {
       display: flex;
       justify-content: center;
       align-items: center;
-      color: $white;
+      color: globals.$white;
       border-radius: 100%;
       margin-right: 10px;
       font-size: 24px;
 
       &:hover {
-        color: $primary2;
+        color: globals.$primary2;
       }
     }
   }
@@ -710,10 +711,10 @@ a:focus {
       display: flex;
       align-items: center;
       margin-bottom: 15px;
-      color: $white;
+      color: globals.$white;
 
       &:hover {
-        color: $primary2;
+        color: globals.$primary2;
       }
     }
   }
@@ -721,22 +722,22 @@ a:focus {
   form {
     input {
       border: none;
-      border-bottom: 1px solid $white;
+      border-bottom: 1px solid globals.$white;
       background-color: transparent;
       width: 100%;
       height: 45px;
-      color: $white;
+      color: globals.$white;
       outline: none;
 
       &::placeholder {
-        color: $white;
+        color: globals.$white;
       }
     }
 
     button {
       width: 100%;
       text-align: center;
-      @include hero_btn($primary2, $white, 10px, 55px, 0);
+      @include hero_btn(globals.$primary2, globals.$white, 10px, 55px, 0);
       margin-top: 15px;
     }
   }
