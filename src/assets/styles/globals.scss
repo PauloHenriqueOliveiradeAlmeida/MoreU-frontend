@@ -10,6 +10,14 @@ $border-radius: 10px;
 
 $main-font: "Poppins", sans-serif;
 
+@mixin background-image($url) {
+    align-items: flex-end;
+    background-image: url($url);
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: 0% 90%;
+}
+
 @mixin input {
     font-size: 0.7rem;
     padding: 0.5rem;
@@ -33,7 +41,7 @@ $main-font: "Poppins", sans-serif;
         color: $white;
         border-color: $white;
     }
-    
+
     &:focus {
         outline: none;
     }

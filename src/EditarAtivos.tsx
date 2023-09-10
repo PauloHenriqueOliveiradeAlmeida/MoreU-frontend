@@ -5,7 +5,7 @@ import Ativos from "./types/ativos";
 import api from "./services/api";
 import { useNavigate } from "react-router-dom";
 
-function CadastroAtivos() {
+function AtualizarAtivos() {
     const navigate = useNavigate();
 
     const formik = useFormik({
@@ -25,28 +25,28 @@ function CadastroAtivos() {
             dataCadastroProduto: Yup.date().required("Informação obrigatória"),
             descricaoProduto: Yup.string().max(255, "A descrição deve ter no máximo 255 caracteres").required("Informação obrigatória")
         }),
-        onSubmit: (values) => { registrarAtivos(values) }
+        onSubmit: (values) => { atualizarAtivos(values) }
     });
 
 
-    async function registrarAtivos(data: Ativos) {
+    async function atualizarAtivos(data: Ativos) {
         try {
-            const response = await api.post("/ativos", data);
+            const response = await api.put("/ativos", data);
 
             if (response.status === 200) {
                 navigate("/dashboard");
             }
         } catch (err) {
-            alert("Houve um erro ao inserir o registro, tente novamente mais tarde");
+            alert("Houve um erro ao atualizar o registro, tente novamente mais tarde");
         }
     }
 
 
     return (
 
-        <div className="background visualizer-container register-container">
+        <div className="background visualizer-container update-container">
             <form className="cadastro-ativos" onSubmit={formik.handleSubmit}>
-                <h2>Registrar Ativos</h2>
+                <h2>Atualizar Ativos</h2>
 
                 <div className="nome">
                     <label htmlFor="nomeProduto">Nome do produto:</label>
@@ -108,10 +108,10 @@ function CadastroAtivos() {
                     ) : <div></div>}
                 </div>
 
-                <button type="submit" className="botao"><span>Registrar</span></button>
+                <button type="submit" className="botao"><span>Atualizar</span></button>
             </form>
         </div>
     )
 }
 
-export default CadastroAtivos;
+export default AtualizarAtivos;

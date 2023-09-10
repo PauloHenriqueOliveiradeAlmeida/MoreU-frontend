@@ -87,4 +87,8 @@
             width: 20%;
         }
     }
+
+    .update-container {
+        @include background-image("/update.svg");
+    }
 }

@@ -5,6 +5,7 @@ import Cadastro from "./Cadastro";
 import Dashboard from "./Dashboard";
 import VisualizarAtivos from "./VisualizarAtivos";
 import CadastroAtivos from "./CadastroAtivos";
+import AtualizarAtivos from "./EditarAtivos";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: "registrar",
                 element: <CadastroAtivos/>
+            },
+            {
+                path: "atualizar",
+                element: <AtualizarAtivos/>
             }
         ]
     }

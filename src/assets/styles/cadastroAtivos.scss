@@ -1,9 +1,5 @@
 @use "./globals.scss" as *;
 
-.background {
-    height: 100%;
-}
-
 .cadastro-ativos {
     background-color: $white;
     color: $black;
@@ -29,13 +25,9 @@
 
 @media (width >= 768px) {
     .register-container {
-        align-items: flex-end;
-        background-image: url("/registrarAtivos.svg");
-        background-size: 40%;
-        background-repeat: no-repeat;
-        background-position: 0% 90%;
-        height: auto;
+        @include background-image("/cadastro.svg");
     }
+
     .cadastro-ativos {
         width: 50%;
         display: grid;

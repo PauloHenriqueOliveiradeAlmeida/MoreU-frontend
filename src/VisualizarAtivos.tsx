@@ -6,8 +6,10 @@ import Ativos from "./types/ativos";
 import { useEffect, useState } from "react";
 import DateMask from "./utils/dateMask";
 import MoneyMask from "./utils/moneyMask";
+import { useNavigate } from "react-router-dom";
 
 function VisualizarAtivos() {
+  const navigate = useNavigate();
   const [dataComponent, setDataComponent] = useState<JSX.Element[]>();
   const [databaseDatas, setDatabaseDatas] = useState<Ativos[]>([]);
 
@@ -138,8 +140,8 @@ function insertDatasInTable(datas: Ativos[]) {
         <td className="qnt-produto" key={`qnt-produto-${index}`}>{data.qntProduto} peças</td>
         <td className="valor-produto" key={`valor-produto-${index}`}>{MoneyMask(data.valorPagoProduto)}</td>
         <td className="actions" key={`acao-${index}`}>
-          <FontAwesomeIcon icon={faEdit} className="edit" key={`edit-${index}`} />
-          <FontAwesomeIcon icon={faTrash} key={`delete-${index}`} onClick={() => deletarAtivos(data.id)}/>
+          <FontAwesomeIcon icon={faEdit} className="edit" key={`edit-${index}`} onClick={() => navigate("atualizar")}/>
+          <FontAwesomeIcon icon={faTrash} key={`delete-${index}`} onClick={() => deletarAtivos(data.id!)}/>
         </td>
       </tr>
     );
