@@ -6,8 +6,8 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons/faLongArrowAltRight";
 import phoneMask from "./utils/phoneMask";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "./services/api";
 
 function Cadastro() {
     const [formActualStep, setFormActualStep] = useState<number>(0);
@@ -48,7 +48,7 @@ function Cadastro() {
 
     async function cadastrarCliente(data: Clientes) {
         try {
-            const response = await axios.post("http://localhost:5000/clientes", data, {
+            const response = await api.post("/clientes", data, {
                 headers: {
                     "Content-Type": "application/json"
                 }

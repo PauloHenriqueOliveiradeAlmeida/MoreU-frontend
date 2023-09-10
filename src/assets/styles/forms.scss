@@ -1,8 +1,8 @@
-@use "globals.scss";
+@use "globals" as *;
 
 .background {
-    background-color: globals.$white;
-    font-family: globals.$main-font;
+    background-color: $white;
+    font-family: $main-font;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
     h1 {
         margin-top: 3rem;
         font-size: 3rem;
-        color: globals.$primary1;
+        color: $primary1;
     }
 
 
@@ -29,8 +29,8 @@
 }
 
 form {
-    background-color: globals.$primary1;
-    color: globals.$white;
+    background-color: $primary1;
+    color: $white;
     width: 90%;
     margin: 0 auto;
     padding: 10%;
@@ -38,7 +38,7 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: globals.$border-radius;
+    border-radius: $border-radius;
 
     h2 {
         font-size: 2rem;
@@ -51,12 +51,8 @@ form {
         flex-direction: column;
         margin-bottom: 1.3rem;
 
-        input {
-            font-size: 0.7rem;
-            padding: 0.5rem;
-            border-radius: calc(globals.$border-radius - 5px);
-            border: none;
-            outline: none;
+        input, select, textarea {
+            @include input;
         }
 
         .message-error {
@@ -65,53 +61,17 @@ form {
     }
 
     button {
-        position: relative;
-        margin-top: calc(2.7rem - 1.3rem);
-        width: 100%;
-        background-color: globals.$white;
-        border: 1.5px solid globals.$primary1;
-        color: globals.$primary1;
-        padding: 0.5rem;
-        font-weight: bold;
-        border-radius: calc(globals.$border-radius - 5px);
-        overflow: hidden;
-        transition: border-color .4s ease-in-out;
-
-        span {
-            position: relative;
-            z-index: 1;
-        }
-
-        &::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            border-radius: 100px;
-            transition: transform .4s ease-in;
-        }
-
-        &:hover {
-            color: globals.$white;
-            border-color: globals.$white;
-        }
-
-        &:hover::after {
-            transform: scale(100);
-            background-color: globals.$primary1;
-            box-shadow: 0px 0px 0px 36px globals.$primary2;
-        }
+        @include button;
+        @include button-effect-hover;
     }
 
     a {
-        color: globals.$white;
+        color: $white;
         margin-top: 1rem;
         transition: text-decoration .2s linear;
 
         &:hover {
-            color: globals.$white;
+            color: $white;
             text-decoration: underline;
         }
     }

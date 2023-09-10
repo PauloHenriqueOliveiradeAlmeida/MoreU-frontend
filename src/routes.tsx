@@ -2,6 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Login from "./Login";
 import Cadastro from "./Cadastro";
+import Dashboard from "./Dashboard";
+import VisualizarAtivos from "./VisualizarAtivos";
+import CadastroAtivos from "./CadastroAtivos";
 
 const router = createBrowserRouter([
     {
@@ -18,15 +21,15 @@ const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <></>,
+        element: <Dashboard/>,
         children: [
             {
-                path: "registrar",
-                element: <></>
+                index: true,
+                element: <VisualizarAtivos/>
             },
             {
-                path: "gerar-relatorio",
-                element: <></>
+                path: "registrar",
+                element: <CadastroAtivos/>
             }
         ]
     }

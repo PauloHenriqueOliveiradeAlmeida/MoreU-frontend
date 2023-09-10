@@ -1,4 +1,4 @@
-@use "globals.scss";
+@use "globals";
 
 @mixin hero_btn($col1, $col2, $pad1, $pad2, $bRadius) {
   display: inline-block;
