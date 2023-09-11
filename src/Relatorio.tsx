@@ -4,14 +4,14 @@ import styles from "./assets/styles/relatorio.ts";
 import DateMask from "./utils/dateMask.ts";
 import Ativos from "./types/ativos";
 import MoneyMask from "./utils/moneyMask.ts";
+import CheckType from "./utils/checkType.ts";
 
 function Relatorio() {
     const location = useLocation();
     const datas: Ativos[] = location.state;
     let stripedZebra = false;
 
-    console.log(datas);
-    
+
     return (
         <PDFViewer style={styles.viewer}>
             <Document>
@@ -55,7 +55,7 @@ function Relatorio() {
                                             <Text style={styles.tableCell} key={`nome-${index}`}>{data.nomeProduto}</Text>
                                         </View>
                                         <View style={styles.tableCol} key={`col-tipo-${index}`}>
-                                            <Text style={styles.tableCell} key={`tipo-${index}`}>{data.tipoProduto}</Text>
+                                            <Text style={styles.tableCell} key={`tipo-${index}`}>{CheckType(data.tipoProduto)}</Text>
                                         </View>
                                         <View style={styles.tableCol} key={`col-qnt-${index}`}>
                                             <Text style={styles.tableCell} key={`qnt-${index}`}>{data.qntProduto}</Text>

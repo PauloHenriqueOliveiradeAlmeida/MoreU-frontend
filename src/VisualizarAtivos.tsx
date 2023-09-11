@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import DateMask from "./utils/dateMask";
 import MoneyMask from "./utils/moneyMask";
 import { Link, useNavigate } from "react-router-dom";
+import checkType from "./utils/checkType";
 
 function VisualizarAtivos() {
   const navigate = useNavigate();
@@ -136,7 +137,7 @@ function insertDatasInTable(datas: Ativos[]) {
       <tr>
         <td className="data-cadastro" key={`data-cadastro-${index}`}>{DateMask(data.dataCadastroProduto)}</td>
         <td className="nome-produto" key={`nome-produto-${index}`}>{data.nomeProduto}</td>
-        <td className="tipo-produto" key={`tipo-produto-${index}`}>{data.tipoProduto}</td>
+        <td className="tipo-produto" key={`tipo-produto-${index}`}>{checkType(data.tipoProduto)}</td>
         <td className="qnt-produto" key={`qnt-produto-${index}`}>{data.qntProduto} peças</td>
         <td className="valor-produto" key={`valor-produto-${index}`}>{MoneyMask(data.valorPagoProduto)}</td>
         <td className="actions" key={`acao-${index}`}>
