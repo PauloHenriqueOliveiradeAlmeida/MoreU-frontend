@@ -1,11 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
-import Login from "./Login";
-import Cadastro from "./Cadastro";
-import Dashboard from "./Dashboard";
-import VisualizarAtivos from "./VisualizarAtivos";
-import CadastroAtivos from "./CadastroAtivos";
-import AtualizarAtivos from "./EditarAtivos";
+import App from "../App";
+import Login from "../Login";
+import Cadastro from "../Cadastro";
+import Dashboard from "../Dashboard";
+import VisualizarAtivos from "../VisualizarAtivos";
+import CadastroAtivos from "../CadastroAtivos";
+import AtualizarAtivos from "../EditarAtivos";
+import Relatorio from "../Relatorio";
 
 const router = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
                 element: <AtualizarAtivos/>
             }
         ]
+    },
+    {
+        path: "/relatorio",
+        element: <Relatorio/>
     }
 ]);
 

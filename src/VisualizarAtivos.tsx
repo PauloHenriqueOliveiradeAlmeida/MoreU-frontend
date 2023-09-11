@@ -6,7 +6,7 @@ import Ativos from "./types/ativos";
 import { useEffect, useState } from "react";
 import DateMask from "./utils/dateMask";
 import MoneyMask from "./utils/moneyMask";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function VisualizarAtivos() {
   const navigate = useNavigate();
@@ -191,7 +191,7 @@ return (
       </table>
     </div>
 
-    <button className="gerar-relatorio"><span>Gerar Relatório</span></button>
+    <Link to="/relatorio" state={databaseDatas} className="gerar-relatorio"><span>Gerar Relatório</span></Link>
   </div>
 );
 }
