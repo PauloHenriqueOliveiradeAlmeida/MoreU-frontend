@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+
+$white: #ffffff;
+$black: #000000;
+$primary1: #121d46;
+$primary2: #88abc2;
+$textCol: #1f1f1f;
+
+$border-radius: 10px;
+
+$main-font: "Poppins", sans-serif;
+
+@mixin background-image($url) {
+    align-items: flex-end;
+    background-image: url($url);
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: 0% 90%;
+}
+
+@mixin input {
+    font-size: 0.7rem;
+    padding: 0.5rem;
+    border-radius: calc($border-radius - 5px);
+    border: none;
+    outline: none;
+}
+
+@mixin button {
+    margin-top: calc(2.7rem - 1.3rem);
+    width: 100%;
+    background-color: $white;
+    border: 1.5px solid $primary1;
+    color: $primary1;
+    padding: 0.5rem;
+    font-weight: bold;
+    border-radius: calc($border-radius - 5px);
+    transition: border-color .4s ease-in-out;
+
+    &:hover {
+        color: $white;
+        border-color: $white;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+@mixin button-effect-hover {
+    position: relative;
+    overflow: hidden;
+
+    span {
+        position: relative;
+        z-index: 1;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        border-radius: 100px;
+        transition: transform .4s ease-in;
+
+    }
+
+    &:hover::after {
+        transform: scale(200);
+        background-color: $primary1;
+        box-shadow: 0px 0px 0px 36px $primary2;
+    }
+}
