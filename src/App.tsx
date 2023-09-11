@@ -27,7 +27,7 @@ function App() {
 
                 </ul>
                 <div className="quote_btn-container">
-                  <a href="" className="quote_btn">
+                  <a href="/login" className="quote_btn">
                     Entrar
                   </a>
                 </div>
