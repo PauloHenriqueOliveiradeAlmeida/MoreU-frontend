@@ -126,7 +126,7 @@ function Cadastro() {
 
                         </div>
 
-                        <button type="submit"><span>Fazer Login</span></button>
+                        <button type="submit"><span>Fazer Cadastro</span></button>
                     </>
                 )}
 
