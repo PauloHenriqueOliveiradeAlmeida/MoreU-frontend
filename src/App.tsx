@@ -128,7 +128,7 @@ function App() {
         <div className="container">
           <div className="heading_container">
             <h2>
-              Nossos diferencial
+              Nossos diferenciais
             </h2>
             <p>
               Entenda o que difere nós da More Ü dos demais!
