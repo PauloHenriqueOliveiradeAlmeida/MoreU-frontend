@@ -3,8 +3,12 @@ import * as Yup from "yup";
 import "./assets/styles/forms.scss";
 import api from "./services/api";
 import Clientes from "./types/clientes";
+import { useNavigate } from "react-router-dom";
+import { UseAuth } from "./contexts/Authentication";
 
 function Login() {
+    const navigate = useNavigate()
+    const { setToken } = UseAuth() || {};
 
     const formik = useFormik({
         initialValues: {
@@ -15,19 +19,30 @@ function Login() {
             email: Yup.string().email("Você deve digitar um e-mail válido").required("Esta informação é obrigatória"),
             password: Yup.string().required("Esta informação é obrigatória")
         }),
-        onSubmit: (values) => handleSubmit(values)
+        onSubmit: (values) => { handleSubmit(values) }
     })
 
     async function handleSubmit(data: Clientes) {
-        const request = await api.post("login", data);
+        try {
+            const request = await api.post("/clientes/login", data);
 
-        return request.data;
+            if (request.status == 200) {
+                if (setToken != undefined) {
+                    setToken(request.data.token);
+                    navigate("/dashboard");
+                }
+            }
+        }
+        catch(err) {
+            alert(`Infelizmente houve um erro ao realizar o login, por favor,
+tente novamente mais tarde ou chame a assistência.`)
+        }
     }
-
+    
 
     return (
         <div className="background">
-            <form>
+            <form onSubmit={formik.handleSubmit}>
                 <h2>Faça seu Login</h2>
                 <div>
                     <label htmlFor="email">Email:</label>

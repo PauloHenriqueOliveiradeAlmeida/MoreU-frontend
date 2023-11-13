@@ -54,7 +54,7 @@ function Cadastro() {
                 }
             });
 
-            if (response.data.created) {
+            if (response.status == 201) {
                 navigate("/dashboard");
             }
         }
