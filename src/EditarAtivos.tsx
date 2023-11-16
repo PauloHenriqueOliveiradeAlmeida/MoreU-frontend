@@ -31,7 +31,7 @@ function AtualizarAtivos() {
 
     async function atualizarAtivos(data: Ativos) {
         try {
-            const response = await api.put("/ativos", data);
+            const response = await api.put("/ativos/", data);
 
             if (response.status === 200) {
                 navigate("/dashboard");

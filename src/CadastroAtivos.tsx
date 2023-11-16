@@ -31,7 +31,7 @@ function CadastroAtivos() {
 
     async function registrarAtivos(data: Ativos) {
         try {
-            const response = await api.post("/ativos", data);
+            const response = await api.post("/ativos/", data);
 
             if (response.status === 200) {
                 navigate("/dashboard");

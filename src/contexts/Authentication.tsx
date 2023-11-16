@@ -1,4 +1,4 @@
-import { PropsWithChildren, createContext, useContext, useEffect, useState } from "react";
+import { PropsWithChildren, createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useCookies } from "react-cookie"
 import api from "../services/api";
 import Auth from "../types/authentication";
@@ -10,16 +10,26 @@ function AuthProvider({children}: PropsWithChildren) {
     const [cookies, setCookie, removeCookie] = useCookies();
     const [token, setToken] = useState<string>(cookies["api_token"]);
 
-    console.log("ççalç")
+
     useEffect(() => {
         if (token) {
             api.defaults.headers.common.Authorization = `Bearer ${token}`
             setCookie("api_token", token);
         }
+
+        console.log(token)
     }, [removeCookie, setCookie, token]);
 
+    const values = useMemo(
+        () => ({
+            token,
+            setToken
+        }),
+        [setToken, token]
+    )
+
     return (
-        <AuthContext.Provider value={{token, setToken: setToken}}>
+        <AuthContext.Provider value={values}>
             {children}
         </AuthContext.Provider>
     );

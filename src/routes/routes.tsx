@@ -31,11 +31,11 @@ function Routes() {
 
     const privateRoutes = [
         {
-            path: "/dashboard",
+            path: "/",
             element: <ProtectedRoutes/>,
             children: [
                 {
-                    index: true,
+                    path: "dashboard",
                     element: <Dashboard/>,
                     children: [
                         {

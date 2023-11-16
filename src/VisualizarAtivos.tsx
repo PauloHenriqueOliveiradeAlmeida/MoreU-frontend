@@ -31,7 +31,7 @@ function VisualizarAtivos() {
   }, []);
 
   async function buscarAtivos() {
-    const response = await api.get("/ativos");
+    const response = await api.get("/ativos/");
     return await response.data;
   }
 

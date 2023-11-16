@@ -8,8 +8,10 @@ import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons/faLongArr
 import phoneMask from "./utils/phoneMask";
 import { useNavigate } from "react-router-dom";
 import api from "./services/api";
+import { UseAuth } from "./contexts/Authentication";
 
 function Cadastro() {
+    const { setToken } = UseAuth() || {}
     const [formActualStep, setFormActualStep] = useState<number>(0);
     const navigate = useNavigate();
 
@@ -48,14 +50,17 @@ function Cadastro() {
 
     async function cadastrarCliente(data: Clientes) {
         try {
-            const response = await api.post("/clientes", data, {
+            const response = await api.post("/clientes/", data, {
                 headers: {
                     "Content-Type": "application/json"
                 }
             });
 
             if (response.status == 201) {
-                navigate("/dashboard");
+                if (setToken) {
+                    setToken(response.data.token);
+                    navigate("/dashboard");
+                }
             }
         }
         catch(err) {
