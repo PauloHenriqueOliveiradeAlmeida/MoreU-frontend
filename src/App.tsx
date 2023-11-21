@@ -1,124 +1,69 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useEffect, useRef } from "react";
 import "./assets/styles/bootstrap/bootstrap.css"
 import "./assets/styles/bootstrap/responsive.css"
-import { faLongArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 function App() {
+  const slide = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    setInterval(() => {
+      if (slide.current) {
+        slide.current.scrollLeft += slide.current.scrollWidth / 3
+
+        if ((slide.current.scrollLeft + slide.current.scrollWidth / 3) === slide.current.scrollWidth) {
+          slide.current.scrollLeft = 0
+        }
+      }
+    }, 4000)
+  }, [])
+
 
   return (
     <>
       <div className="hero_area">
         <header className="header_section">
           <div className="container-fluid">
-            <nav className="navbar navbar-expand-lg custom_nav-container ">
-              <a className="navbar-brand" href="index.html">
+            <nav className="navbar custom_nav-container">
+              <Link className="navbar-brand" to="/"> {/*Transformar em Link*/}
                 <span>
                   More Ü
                 </span>
-              </a>
+              </Link>
 
-              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className=""> </span>
-              </button>
-
-              <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul className="navbar-nav  ">
-
-
-                </ul>
-                <div className="quote_btn-container">
-                  <a href="/login" className="quote_btn">
-                    Entrar
-                  </a>
-                </div>
+              <div className="quote_btn-container">
+                <Link to="/login" className="quote_btn">
+                  Entrar
+                </Link>
               </div>
             </nav>
           </div>
         </header>
 
-        <section className="slider_section">
-          <div id="customCarousel1" className="carousel slide" data-ride="carousel">
-            <div className="carousel-inner">
-              <div className="carousel-item active">
-                <div className="container ">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="img-box">
-                        <img src="slide1.svg" alt="" />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="detail-box">
-                        <h1>
-                          More Ü
-                        </h1>
-                        <p>
-                          Empresa especializada em consultoria, infraestrutura tecnológica e implementação para o seu negócio!
-                        </p>
-                        <div className="btn-box">
+        <section className="carousel-container" ref={slide}>
+          <figure>
+            <img src="slide1.svg" />
+            <figcaption>
+              <h2>MoreÜ</h2>
+              <p>Empresa especializada em consultoria,
+                infraestrutura tecnológica e
+                implementação para o seu negócio!</p>
+            </figcaption>
+          </figure>
 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="carousel-item ">
-                <div className="container ">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="img-box">
-                        <img src="slide2.svg" alt="" />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="detail-box">
-                        <h1>
-                          Nossos princípios
-                        </h1>
-                        <p>
-                          A More Ü tem como princípios a praticidade, inovação e sustentabilidade
-                        </p>
-                        <div className="btn-box">
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="carousel-item ">
-                <div className="container ">
-                  <div className="row">
-                    <div className="col-md-6">
-                      <div className="img-box">
-                        <img src="slide3.svg" alt="" />
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="detail-box">
-                        <h1>
-                          Nós e meio ambiente
-                        </h1>
-                        <p>
-                          A More Ü é uma empresa que abraça o meio ambiente e causas sociais, sempre visando um mundo melhor e sustentável
-                        </p>
-                        <div className="btn-box">
-
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <ol className="carousel-indicators">
-              <li data-target="#customCarousel1" data-slide-to="0" className="active"></li>
-              <li data-target="#customCarousel1" data-slide-to="1"></li>
-              <li data-target="#customCarousel1" data-slide-to="2"></li>
-            </ol>
-          </div>
-
+          <figure>
+            <img src="slide2.svg" />
+            <figcaption>
+              <h2>Nossos princípios</h2>
+              <p>A MoreÜ tem como princípios a praticidade, inovação e sustentabilidade</p>
+            </figcaption>
+          </figure>
+          <figure>
+            <img src="slide3.svg" />
+            <figcaption>
+              <h2>Nós e meio ambiente</h2>
+              <p>A More Ü é uma empresa que abraça o meio ambiente e causas sociais, sempre visando um mundo melhor e sustentável</p>
+            </figcaption>
+          </figure>
         </section>
 
       </div>
@@ -201,7 +146,7 @@ function App() {
       </section>
 
       <section className="about_section layout_padding">
-        <div className="container  ">
+        <div className="container">
           <div className="row">
             <div className="col-md-6">
               <div className="detail-box">
@@ -211,26 +156,31 @@ function App() {
                   </h2>
                 </div>
                 <p>
-                  A frente da revolução tecnológica, a More Ü é uma empresa de consultoria e
+                  A frente da revolução tecnológica, a MoreÜ é uma empresa de consultoria e
                   implementação de infraestrutura de T.I que prioriza a singularidade de cada cliente.
+                </p>
+                <p>
                   Nossa abordagem vai além do convencional, centrando-se nas necessidades específicas de
                   cada organização. Com uma equipe de especialistas altamente qualificados e uma compreensão
                   profunda das operações de negócio, criamos soluções personalizadas que impulsionam o sucesso
-                  a longo prazo.<br />
+                  a longo prazo.
+                </p>
+                <p>
                   Entendemos que a demanda por T.I é diversificada e em constante evolução.
                   Por isso, nossa equipe não apenas domina as últimas tecnologias,
                   mas também está imersa no entendimento das particularidades de diferentes setores e
-                  portes de empresas. Desde a concepção de redes complexas até a gestão de dados críticos,
+                  portes de empresas.<br /> Desde a concepção de redes complexas até a gestão de dados críticos,
                   nossas soluções são projetadas para estar no topo da tecnologia, mantendo a segurança e confiabilidade
                   como prioridades inabaláveis.
                 </p>
 
+
               </div>
             </div>
-            <div className="col-md-6 ">
-              <div className="img-box">
-                <img src="sobre.png" alt="" />
-              </div>
+            <div className="col-md-6">
+              <figure>
+                <img className="img img-fluid rounded" src="sobre.png" alt="sobre" />
+              </figure>
             </div>
 
           </div>
@@ -251,33 +201,33 @@ function App() {
                 <div className="img-box">
                   <img src="sala.png" alt="" />
                 </div>
-                <div className="detail-box">
+                <div className="detail-box text-left">
                   <h5>
                     Ü More
                   </h5>
                   <p>
-                    Atualmente, temos a honra de contar com a parceria da Ü More como nosso maior cliente. Esta empresa está em um constante processo de evolução, e seu propósito é verdadeiramente inspirador. A Ü More não apenas busca o sucesso comercial, mas também almeja um impacto positivo e duradouro na comunidade e no mundo como um todo.
+                    Atualmente, temos a honra de contar com a parceria da ÜMore como nosso maior cliente.
                   </p>
-                  <a href="https://umore.com.br">
-                    <span>
-                      Clique aqui para conhecer melhor
-                    </span>
-                    <FontAwesomeIcon icon={faLongArrowRight}/>
-                  </a>
+                  <p>
+                    Esta empresa está em um constante processo de evolução,
+                    e seu propósito é verdadeiramente inspirador.
+                    A ÜMore não apenas busca o sucesso comercial, mas também almeja um impacto positivo
+                    e duradouro na comunidade e no mundo como um todo.
+                  </p>
                 </div>
               </div>
             </div>
             <div className="col-md-6">
               <div className="box">
                 <div className="img-box">
-                  <img src="logo-1.png" alt="" />
+                  <img src="logo-1.png" alt="logo Ümore" />
                 </div>
               </div>
 
             </div>
           </div>
         </div>
-      </section >
+      </section>
 
 
 

@@ -18,6 +18,13 @@
     h1 {
         font-size: 1rem;
         align-self: flex-end;
+
+        span {
+            background-color: $white;
+            color: $primary1;
+            text-decoration: underline;
+            padding: 1px;
+        }
     }
 
     nav {
@@ -45,7 +52,7 @@
             @include button-effect-hover;
         }
 
-        a {
+        a, button {
             text-align: center;
             display: flex;
             flex-direction: column;

@@ -1,4 +1,4 @@
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPlusSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import "./assets/styles/visualizarAtivos.scss"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import api from "./services/api";
@@ -39,8 +39,8 @@ function VisualizarAtivos() {
     try {
       const response = await api.delete(`/ativos/${id}`);
 
-      if (response.data) {
-        insertDatasInTable((await api.get("/ativos")).data);
+      if (response.status == 200) {
+        insertDatasInTable((await api.get("/ativos/")).data);
       }
     }
     catch(err) {
@@ -132,23 +132,37 @@ function VisualizarAtivos() {
 
 function insertDatasInTable(datas: Ativos[]) {
   const datasArray: JSX.Element[] = [];
-  datas.forEach((data, index) => {
+  if (datas.length) {
+    datas.forEach((data) => {
+      datasArray.push(
+        <tr key={`row-${data.id}`}>
+          <td className="data-cadastro" key={`data-cadastro-${data.id}`}>{DateMask(data.dataCadastroProduto)}</td>
+          <td className="nome-produto" key={`nome-produto-${data.id}`}>{data.nomeProduto}</td>
+          <td className="tipo-produto" key={`tipo-produto-${data.id}`}>{checkType(data.tipoProduto)}</td>
+          <td className="qnt-produto" key={`qnt-produto-${data.id}`}>{data.qntProduto} peças</td>
+          <td className="valor-produto" key={`valor-produto-${data.id}`}>{MoneyMask(data.valorPagoProduto)}</td>
+          <td className="actions" key={`acao-${data.id}`}>
+            <FontAwesomeIcon icon={faEdit} className="edit" key={`edit-${data.id}`} onClick={() => navigate("atualizar", {state: {id: data.id}})}/>
+            <FontAwesomeIcon icon={faTrash} key={`delete-${data.id}`} onClick={() => deletarAtivos(data.id!)}/>
+          </td>
+        </tr>
+      );
+
+      setDataComponent(datasArray);
+    });
+  }
+  else {
     datasArray.push(
-      <tr>
-        <td className="data-cadastro" key={`data-cadastro-${index}`}>{DateMask(data.dataCadastroProduto)}</td>
-        <td className="nome-produto" key={`nome-produto-${index}`}>{data.nomeProduto}</td>
-        <td className="tipo-produto" key={`tipo-produto-${index}`}>{checkType(data.tipoProduto)}</td>
-        <td className="qnt-produto" key={`qnt-produto-${index}`}>{data.qntProduto} peças</td>
-        <td className="valor-produto" key={`valor-produto-${index}`}>{MoneyMask(data.valorPagoProduto)}</td>
-        <td className="actions" key={`acao-${index}`}>
-          <FontAwesomeIcon icon={faEdit} className="edit" key={`edit-${index}`} onClick={() => navigate("atualizar")}/>
-          <FontAwesomeIcon icon={faTrash} key={`delete-${index}`} onClick={() => deletarAtivos(data.id!)}/>
+      <tr key="row-1" className="ativos-vazio" onClick={() => navigate("registrar")}>
+        <td colSpan={5} key="data-1">Você ainda não cadastrou nenhum ativo!<br/>
+          <FontAwesomeIcon icon={faPlusSquare} key="icon-1"/><br/>
+          <span key="span-1">Clique para cadastrar um novo ativo, ou acesse o menu</span>
         </td>
       </tr>
     );
 
-    setDataComponent(datasArray);
-  })
+    setDataComponent(datasArray)
+  }
 }
 
 return (

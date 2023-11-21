@@ -119,7 +119,26 @@ table {
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        gap: 1rem
+        gap: 1rem;
+        cursor: pointer;
+    }
+
+    .ativos-vazio {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        td {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        span {
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
     }
 }
 
@@ -184,6 +203,10 @@ table {
             .edit {
                 margin-right: 1rem;
             }
+        }
+
+        .ativos-vazio {
+            display: table-row;
         }
     }
 }

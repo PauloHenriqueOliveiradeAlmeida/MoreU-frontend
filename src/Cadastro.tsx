@@ -2,16 +2,16 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import "./assets/styles/forms.scss";
 import Clientes from "./types/clientes";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons/faLongArrowAltRight";
 import phoneMask from "./utils/phoneMask";
 import { useNavigate } from "react-router-dom";
 import api from "./services/api";
-import { UseAuth } from "./contexts/Authentication";
+import { AuthContext } from "./contexts/Authentication";
 
 function Cadastro() {
-    const { setToken } = UseAuth() || {}
+    const auth = useContext(AuthContext);
     const [formActualStep, setFormActualStep] = useState<number>(0);
     const navigate = useNavigate();
 
@@ -57,10 +57,9 @@ function Cadastro() {
             });
 
             if (response.status == 201) {
-                if (setToken) {
-                    setToken(response.data.token);
+                    auth?.Login(response.data.token);
                     navigate("/dashboard");
-                }
+                
             }
         }
         catch(err) {

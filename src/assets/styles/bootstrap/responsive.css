@@ -11,10 +11,6 @@
     height: auto;
   }
 
-  .quote_btn-container {
-    display: none;
-  }
-
   .custom_nav-container .navbar-nav {
     margin: 0;
     margin-left: auto;

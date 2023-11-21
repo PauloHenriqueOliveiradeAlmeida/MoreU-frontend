@@ -7,13 +7,10 @@ import VisualizarAtivos from "../VisualizarAtivos";
 import CadastroAtivos from "../CadastroAtivos";
 import AtualizarAtivos from "../EditarAtivos";
 import Relatorio from "../Relatorio";
-import { UseAuth } from "../contexts/Authentication";
 import ProtectedRoutes from "./protectedRoutes";
 
 
 function Routes() {
-    const { token } = UseAuth() || {}
-
     const publicRoutes = [
         {
             path: "/",
@@ -62,7 +59,7 @@ function Routes() {
     
     const router = createBrowserRouter([
         ...publicRoutes,
-        ...(token ? privateRoutes : [])
+        ...privateRoutes
     ]);
 
     return <RouterProvider router={router} />

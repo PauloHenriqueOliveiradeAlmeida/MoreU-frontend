@@ -1,10 +1,11 @@
+import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { UseAuth } from "../contexts/Authentication";
+import { AuthContext } from "../contexts/Authentication";
 
 function ProtectedRoutes() {
-    const { token } = UseAuth() || {};
+    const auth = useContext(AuthContext);
 
-    if (!token) {
+    if (!auth?.token) {
         return <Navigate to="/" />
     }
     else {

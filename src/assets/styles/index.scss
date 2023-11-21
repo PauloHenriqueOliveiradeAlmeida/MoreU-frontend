@@ -39,6 +39,7 @@ body {
   overflow-x: hidden;
 }
 
+
 .layout_padding {
   padding: 90px 0;
 }
@@ -104,12 +105,12 @@ a:focus {
   box-shadow: none;
 }
 
-/*header section*/
 .hero_area {
   position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   background-color: globals.$primary1;
   border-radius: 0 0 350px 0;
 }
@@ -123,7 +124,12 @@ a:focus {
 
 .header_section {
   padding: 15px 0;
-
+  position: fixed;
+  background-color: globals.$primary1;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  width: 100%;
   .container-fluid {
     padding-right: 25px;
     padding-left: 25px;
@@ -268,85 +274,42 @@ a:focus {
 
 /*end header section*/
 
-/* slider section */
-.slider_section {
-  flex: 1;
+
+.carousel-container {
   display: flex;
-  align-items: center;
-  padding: 45px 0;
+  overflow-x: scroll;
+  scroll-behavior: smooth;
+  @media (width >= 768px) {
+    flex-direction: row;
 
-  .row {
+    figure {
+      flex-wrap: nowrap !important;
+    }
+  }
+
+  figure {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-  }
-
-  #customCarousel1 {
-    width: 100%;
-    position: unset;
-  }
-
-  .detail-box {
-    text-align: center;
     color: globals.$white;
-
-    h1 {
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    p {}
-
-    .btn-box {
-      display: flex;
-      justify-content: center;
-      margin: 0 -5px;
-      margin-top: 45px;
-
-      a {
-        margin: 5px;
-        text-align: center;
-        width: 185px;
-      }
-
-      .btn1 {
-        @include hero_btn(darken($color: globals.$primary1, $amount: 10),
-          globals.$white,
-          12px,
-          15px,
-          5px);
-      }
-    }
-  }
-
-  .img-box {
+    gap: 40px;
+    padding: 0px 10%;
+    flex: 0 0 100%;
+    scroll-snap-type: mandatory;
     img {
       width: 100%;
     }
-  }
 
-  .carousel-indicators {
-    position: unset;
-    margin: 0;
-    justify-content: center;
-    align-items: center;
-    margin-top: 45px;
-
-    li {
-      background-color: globals.$white;
-      width: 15px;
-      height: 15px;
-      border-radius: 100%;
-      opacity: 1;
-
-      &.active {
-        width: 23px;
-        height: 23px;
-        background-color: globals.$primary2;
-      }
+    h2 {
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 2.5rem;
     }
   }
-}
 
-// end slider section
+
+}
 
 // service section
 

@@ -1,15 +1,30 @@
 import { faBars, faChartColumn, faFilePen, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./assets/styles/dashboard.scss";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
+import api from "./services/api";
+import { AuthContext } from "./contexts/Authentication";
 
 function Dashboard() {
+    const [name, setName] = useState<string>();
     const [menuPosition, setMenuPosition] = useState<string>("-100%");
-
+    const auth = useContext(AuthContext);
     const moveMenu = () => {
         setMenuPosition(menuPosition === "-100%" ? "0px" : "-100%");
     }
+
+    useEffect(() => {
+        async function getUserName() {
+            const res = await api.get("/clientes/id");
+            
+            if (res.status == 200) {
+                setName(res.data.nomeUsuario);
+            }
+        }
+
+        getUserName()
+    }, [])
 
     return (
         <>
@@ -17,7 +32,7 @@ function Dashboard() {
                 <button onClick={moveMenu}>
                     <FontAwesomeIcon icon={faBars} />
                 </button>
-                <h1>Seja bem-vindo &#128075;</h1>
+                <h1>Seja bem-vindo <span>{name?.toUpperCase()}</span> &#128075;</h1>
                 <nav style={{ left: menuPosition }}>
                     <ul>
                         <li>
@@ -37,12 +52,12 @@ function Dashboard() {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/">
+                            <button onClick={() => auth?.Logout()}>
                                 <span>
                                     <FontAwesomeIcon icon={faRightFromBracket} flip="horizontal" />
                                 </span>
                                 <span>Sair</span>
-                            </Link>
+                            </button>
                         </li>
                     </ul>
                 </nav>

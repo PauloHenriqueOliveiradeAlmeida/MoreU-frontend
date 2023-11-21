@@ -33,7 +33,7 @@ function CadastroAtivos() {
         try {
             const response = await api.post("/ativos/", data);
 
-            if (response.status === 200) {
+            if (response.status === 201) {
                 navigate("/dashboard");
             }
         } catch (err) {

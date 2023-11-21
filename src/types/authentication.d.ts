@@ -1,6 +1,7 @@
 interface Auth {
-    token: string,
-    setToken: React.Dispatch<React.SetStateAction<string>>
+    token: string | undefined,
+    Login: (data: Clientes) => Promise<boolean>,
+    Logout: () => void
 
 }
 

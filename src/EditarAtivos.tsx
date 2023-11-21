@@ -3,10 +3,12 @@ import "./assets/styles/cadastroAtivos.scss";
 import * as Yup from "yup";
 import Ativos from "./types/ativos";
 import api from "./services/api";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function AtualizarAtivos() {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const formik = useFormik({
         initialValues: {
@@ -27,6 +29,21 @@ function AtualizarAtivos() {
         }),
         onSubmit: (values) => { atualizarAtivos(values) }
     });
+
+    useEffect(() => {
+        
+        async function buscarDadosOriginais() {
+            const id: number = location.state.id;
+
+            const res = await api.get(`/ativos/${id}`);
+
+            if (res.status === 200) {
+                formik.setValues(res.data)
+            }
+        }
+
+        buscarDadosOriginais()
+    }, []);
 
 
     async function atualizarAtivos(data: Ativos) {
