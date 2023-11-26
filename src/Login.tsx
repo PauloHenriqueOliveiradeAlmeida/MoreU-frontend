@@ -5,6 +5,9 @@ import Clientes from "./types/clientes";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "./contexts/Authentication";
 import { useContext } from "react";
+import api from "./services/api";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 function Login() {
     const auth = useContext(AuthContext)
@@ -23,16 +26,49 @@ function Login() {
 
     async function handleSubmit(data: Clientes) {
         try {
-            const isLogged = await auth?.Login(data);
 
-            if (isLogged) {
-                navigate("/dashboard")
+            const request = await api.post("/clientes/login", data);
+
+            if (request.status == 200) {
+                
+                const isLogged = await auth?.Login(request.data.token);
+                
+                if (isLogged) {
+                    navigate("/dashboard");
+                }
                 
             }
         }
         catch (err) {
-            alert(`Infelizmente houve um erro ao realizar o login, por favor,
-tente novamente mais tarde ou chame a assistência.`)
+            if (err instanceof AxiosError) {
+                if (err.response?.status === 204) {
+                    toast.info("Email não cadastrado", {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        theme: "colored",
+                    });
+                }
+                else if (err.response?.status === 401) {
+                    toast.info("Email/senha incorretos", {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        theme: "colored",
+                    });
+                }
+                else if (err.response?.status === 500) {
+                    toast.error("Erro no servidor, contacte os desenvolvedores imediatamente", {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        theme: "colored",
+                    });
+                }
+            }
         }
     }
 

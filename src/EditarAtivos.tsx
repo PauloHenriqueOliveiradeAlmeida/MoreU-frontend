@@ -5,6 +5,8 @@ import Ativos from "./types/ativos";
 import api from "./services/api";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 function AtualizarAtivos() {
     const navigate = useNavigate();
@@ -35,10 +37,36 @@ function AtualizarAtivos() {
         async function buscarDadosOriginais() {
             const id: number = location.state.id;
 
-            const res = await api.get(`/ativos/${id}`);
 
-            if (res.status === 200) {
-                formik.setValues(res.data)
+            try {
+                const res = await api.get(`/ativos/${id}`);
+
+                if (res.status === 200) {
+                    formik.setValues(res.data)
+                }
+
+            }
+            catch(err) {
+                if (err instanceof AxiosError) {
+                    if (err.response?.status === 204) {
+                        toast.info("Ativo não encontrado", {
+                            position: "bottom-right",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            theme: "colored",
+                        });
+                    }
+                    else if (err.response?.status === 500) {
+                        toast.error("Erro no servidor, contacte os desenvolvedores imediatamente", {
+                            position: "bottom-right",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            theme: "colored",
+                        });
+                    }
+                }
             }
         }
 
@@ -54,7 +82,26 @@ function AtualizarAtivos() {
                 navigate("/dashboard");
             }
         } catch (err) {
-            alert("Houve um erro ao atualizar o registro, tente novamente mais tarde");
+            if (err instanceof AxiosError) {
+                if (err.response?.status === 204) {
+                    toast.info("Ativo não encontrado", {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        theme: "colored",
+                    });
+                }
+                else if (err.response?.status === 500) {
+                    toast.error("Erro no servidor, contacte os desenvolvedores imediatamente", {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        theme: "colored",
+                    });
+                }
+            }
         }
     }
 

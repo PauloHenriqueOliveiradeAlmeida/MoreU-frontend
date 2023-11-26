@@ -9,6 +9,8 @@ import phoneMask from "./utils/phoneMask";
 import { useNavigate } from "react-router-dom";
 import api from "./services/api";
 import { AuthContext } from "./contexts/Authentication";
+import { toast } from "react-toastify";
+import { AxiosError } from "axios";
 
 function Cadastro() {
     const auth = useContext(AuthContext);
@@ -57,14 +59,43 @@ function Cadastro() {
             });
 
             if (response.status == 201) {
-                    auth?.Login(response.data.token);
-                    navigate("/dashboard");
-                
+                    const isLogged = auth?.Login(response.data.token);
+
+                    if (isLogged) {
+                        navigate("/dashboard");
+                    }
+                    else {
+                        toast.error("Houve um erro ao se conectar a nova conta, mas você pode acessá-la pela tela de login", {
+                            position: "bottom-right",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            theme: "colored",
+                            });
+                    }
             }
         }
         catch(err) {
-            alert(`Infelizmente houve um erro ao realizar o cadastro, por favor,
-            tente novamente mais tarde ou chame a assistência.`)
+            if (err instanceof AxiosError) {
+                if (err.response?.status === 409) {
+                    toast.info("O email digitado já está sendo utilizado, tente novamente com outro email", {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        theme: "colored",
+                    });
+                }
+                else if (err.response?.status === 500) {
+                    toast.error("Ocorreu um erro ao criar a conta, tente novamente mais tarde...", {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        theme: "colored",
+                    });
+                }
+        }
             
         } 
     }

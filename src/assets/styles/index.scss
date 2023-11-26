@@ -279,12 +279,17 @@ a:focus {
   display: flex;
   overflow-x: scroll;
   scroll-behavior: smooth;
+  scrollbar-color: transparent transparent;
   @media (width >= 768px) {
     flex-direction: row;
 
     figure {
       flex-wrap: nowrap !important;
     }
+  }
+
+  &::-webkit-scrollbar {
+    height: 0px;
   }
 
   figure {

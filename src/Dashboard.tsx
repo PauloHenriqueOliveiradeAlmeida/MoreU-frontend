@@ -5,6 +5,8 @@ import { useContext, useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import api from "./services/api";
 import { AuthContext } from "./contexts/Authentication";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 function Dashboard() {
     const [name, setName] = useState<string>();
@@ -16,15 +18,39 @@ function Dashboard() {
 
     useEffect(() => {
         async function getUserName() {
-            const res = await api.get("/clientes/id");
-            
-            if (res.status == 200) {
-                setName(res.data.nomeUsuario);
+            try {
+                const res = await api.get("/clientes/id");
+
+                if (res.status == 200) {
+                    setName(res.data.nomeUsuario);
+                }
+            }
+            catch (err) {
+                if (err instanceof AxiosError) {
+                    if (err.response?.status === 204) {
+                        toast.warn("Usuário não encontrado", {
+                            position: "bottom-right",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            theme: "colored",
+                        });
+                    }
+                    else if (err.response?.status === 500) {
+                        toast.error("Erro de servidor, contacte os desenvolvedores imediatamente", {
+                            position: "bottom-right",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            theme: "colored",
+                        });
+                    }
+                }
             }
         }
 
-        getUserName()
-    }, [])
+        getUserName();
+    }, []);
 
     return (
         <>

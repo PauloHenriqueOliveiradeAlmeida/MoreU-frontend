@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import Ativos from "./types/ativos";
 import api from "./services/api";
 import { useNavigate } from "react-router-dom";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 function CadastroAtivos() {
     const navigate = useNavigate();
@@ -37,7 +39,17 @@ function CadastroAtivos() {
                 navigate("/dashboard");
             }
         } catch (err) {
-            alert("Houve um erro ao inserir o registro, tente novamente mais tarde");
+            if (err instanceof AxiosError) {
+                if (err.response?.status === 500) {
+                    toast.error("Erro no servidor, contacte os desenvolvedores imediatamente", {
+                        position: "bottom-right",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        theme: "colored",
+                    });
+                }
+            }
         }
     }
 

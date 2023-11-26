@@ -8,6 +8,8 @@ import DateMask from "./utils/dateMask";
 import MoneyMask from "./utils/moneyMask";
 import { Link, useNavigate } from "react-router-dom";
 import checkType from "./utils/checkType";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 function VisualizarAtivos() {
   const navigate = useNavigate();
@@ -31,8 +33,24 @@ function VisualizarAtivos() {
   }, []);
 
   async function buscarAtivos() {
-    const response = await api.get("/ativos/");
-    return await response.data;
+
+    try {
+      const response = await api.get("/ativos/");
+      return await response.data;
+    }
+    catch(err) {
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 500) {
+          toast.error("Erro no servidor, contacte os desenvolvedores imediatamente", {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "colored",
+        });
+        }
+      }
+    }
   }
 
   const deletarAtivos = async (id: number) => {
@@ -44,8 +62,17 @@ function VisualizarAtivos() {
       }
     }
     catch(err) {
-      console.log(err);
-      alert("Houve um erro ao deletar, por favor, tente novamente mais tarde");
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 500) {
+          toast.error("Erro no servidor, contacte os desenvolvedores imediatamente", {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            theme: "colored",
+        });
+        }
+      }
     }
   }
 
